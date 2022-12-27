@@ -8,10 +8,10 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/InputSettings.h"
-#include "HeadMountedDisplayFunctionLibrary.h"
+//#include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
-#include "MotionControllerComponent.h"
-#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+//#include "MotionControllerComponent.h"
+//#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 
 #include "PortalPlayerController.h"
 #include "PortalManager.h"
@@ -64,25 +64,25 @@ APortalCharacter::APortalCharacter()
 	// are set in the derived blueprint asset named MyCharacter to avoid direct content references in C++.
 
 	// Create VR Controllers.
-	R_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("R_MotionController"));
-	R_MotionController->MotionSource = FXRMotionControllerBase::RightHandSourceId;
-	R_MotionController->SetupAttachment(RootComponent);
-	L_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("L_MotionController"));
-	L_MotionController->SetupAttachment(RootComponent);
+	//R_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("R_MotionController"));
+	//R_MotionController->MotionSource = FXRMotionControllerBase::RightHandSourceId;
+	//R_MotionController->SetupAttachment(RootComponent);
+	//L_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("L_MotionController"));
+	//L_MotionController->SetupAttachment(RootComponent);
 
 	// Create a gun and attach it to the right-hand VR controller.
 	// Create a gun mesh component
-	VR_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("VR_Gun"));
-	VR_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
-	VR_Gun->bCastDynamicShadow = false;
-	VR_Gun->CastShadow = false;
-	VR_Gun->SetupAttachment(R_MotionController);
-	VR_Gun->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+	//VR_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("VR_Gun"));
+	//VR_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
+	//VR_Gun->bCastDynamicShadow = false;
+	//VR_Gun->CastShadow = false;
+	//VR_Gun->SetupAttachment(R_MotionController);
+	//VR_Gun->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
 
-	VR_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("VR_MuzzleLocation"));
-	VR_MuzzleLocation->SetupAttachment(VR_Gun);
-	VR_MuzzleLocation->SetRelativeLocation(FVector(0.000004, 53.999992, 10.000000));
-	VR_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));		// Counteract the rotation of the VR gun model.
+	//VR_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("VR_MuzzleLocation"));
+	//VR_MuzzleLocation->SetupAttachment(VR_Gun);
+	//VR_MuzzleLocation->SetRelativeLocation(FVector(0.000004, 53.999992, 10.000000));
+	//VR_MuzzleLocation->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));		// Counteract the rotation of the VR gun model.
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
@@ -198,7 +198,7 @@ void APortalCharacter::OnFire()
 
 void APortalCharacter::OnResetVR()
 {
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
+	//UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 
 void APortalCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
@@ -229,8 +229,8 @@ void APortalCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVect
 //Commenting this section out to be consistent with FPS BP template.
 //This allows the user to turn without using the right virtual joystick
 
-//void APortalCharacter::TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location)
-//{
+void APortalCharacter::TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location)
+{
 //	if ((TouchItem.bIsPressed == true) && (TouchItem.FingerIndex == FingerIndex))
 //	{
 //		if (TouchItem.bIsPressed)
@@ -262,7 +262,7 @@ void APortalCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVect
 //			}
 //		}
 //	}
-//}
+}
 
 void APortalCharacter::MoveForward(float Value)
 {
@@ -324,44 +324,44 @@ void APortalCharacter::Fire()
 
 void APortalCharacter::OnBlueFire()
 {
-	APortalPlayerController* PlayerController =
-		Cast<APortalPlayerController>(GetWorld()->GetFirstPlayerController());
-	if (PlayerController != nullptr)
-	{
-		APortalManager* PortalManager = PlayerController->GetPortalManager();
-		if (PortalManager != nullptr)
-		{
-			Fire();
-
-			const FVector Start = ((FP_MuzzleLocation != nullptr) ?
-				FP_MuzzleLocation->GetComponentLocation() : GetActorLocation() +
-				GetControlRotation().RotateVector(GunOffset));
-
-			const FVector End = Start + FirstPersonCameraComponent->GetForwardVector() * 5000.0f;
-
-			PortalManager->SpawnBluePortal(Start, End);
-		}
-	}
+// 	APortalPlayerController* PlayerController =
+// 		Cast<APortalPlayerController>(GetWorld()->GetFirstPlayerController());
+// 	if (PlayerController != nullptr)
+// 	{
+// 		//APortalManager* PortalManager = PlayerController->GetPortalManager();
+// 		if (PortalManager != nullptr)
+// 		{
+// 			Fire();
+// 
+// 			const FVector Start = ((FP_MuzzleLocation != nullptr) ?
+// 				FP_MuzzleLocation->GetComponentLocation() : GetActorLocation() +
+// 				GetControlRotation().RotateVector(GunOffset));
+// 
+// 			const FVector End = Start + FirstPersonCameraComponent->GetForwardVector() * 5000.0f;
+// 
+// 			PortalManager->SpawnBluePortal(Start, End);
+// 		}
+// 	}
 }
 
 void APortalCharacter::OnRedFire()
 {
-	APortalPlayerController* PlayerController =
-		Cast<APortalPlayerController>(GetWorld()->GetFirstPlayerController());
-	if (PlayerController != nullptr)
-	{
-		APortalManager* PortalManager = PlayerController->GetPortalManager();
-		if (PortalManager != nullptr)
-		{
-			Fire();
-
-			const FVector Start = ((FP_MuzzleLocation != nullptr) ?
-				FP_MuzzleLocation->GetComponentLocation() : GetActorLocation() +
-				GetControlRotation().RotateVector(GunOffset));
-
-			const FVector End = Start + FirstPersonCameraComponent->GetForwardVector() * 5000.0f;
-
-			PortalManager->SpawnRedPortal(Start, End);
-		}
-	}
+// 	APortalPlayerController* PlayerController =
+// 		Cast<APortalPlayerController>(GetWorld()->GetFirstPlayerController());
+// 	if (PlayerController != nullptr)
+// 	{
+// 		APortalManager* PortalManager = PlayerController->GetPortalManager();
+// 		if (PortalManager != nullptr)
+// 		{
+// 			Fire();
+// 
+// 			const FVector Start = ((FP_MuzzleLocation != nullptr) ?
+// 				FP_MuzzleLocation->GetComponentLocation() : GetActorLocation() +
+// 				GetControlRotation().RotateVector(GunOffset));
+// 
+// 			const FVector End = Start + FirstPersonCameraComponent->GetForwardVector() * 5000.0f;
+// 
+// 			PortalManager->SpawnRedPortal(Start, End);
+// 		}
+// 	}
 }

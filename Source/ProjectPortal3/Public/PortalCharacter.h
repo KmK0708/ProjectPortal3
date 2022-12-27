@@ -44,12 +44,12 @@ class APortalCharacter : public ACharacter
 		UCameraComponent* FirstPersonCameraComponent;
 
 	/** Motion controller (right hand) */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-		UMotionControllerComponent* R_MotionController;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	//	UMotionControllerComponent* R_MotionController;
 
 	/** Motion controller (left hand) */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-		UMotionControllerComponent* L_MotionController;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	//	UMotionControllerComponent* L_MotionController;
 
 public:
 	// Sets default values for this character's properties
