@@ -13,5 +13,5 @@ UCLASS()
 class PROJECTPORTAL3_API AProjectPortal3GameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
 };

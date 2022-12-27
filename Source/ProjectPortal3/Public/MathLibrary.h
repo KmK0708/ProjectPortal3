@@ -28,7 +28,7 @@ public:
 	UFUNCTION(BluePrintCallable)
 		static bool CheckIsInFront(FVector const& point, FVector const& PortalLocation, FVector const& PortalNormal);
 
-	//UFUNCTION(BluePrintCallable)
-		//static bool CheckIsCrossing(FVector const& Point, FVector const& PortalLocation, FVector const& PortalNormal, bool& out_LastInFront, FVector& out_LastPosition);
+	UFUNCTION(BluePrintCallable)
+		static bool CheckIsCrossing(FVector const& Point, FVector const& PortalLocation, FVector const& PortalNormal, bool& out_LastInFront, FVector& out_LastPosition);
 	
 };
