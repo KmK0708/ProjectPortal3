@@ -97,16 +97,16 @@ void APortalCharacter::BeginPlay()
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 
 	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
-	if (bUsingMotionControllers)
-	{
-		VR_Gun->SetHiddenInGame(false, true);
-		Mesh1P->SetHiddenInGame(true, true);
-	}
-	else
-	{
-		VR_Gun->SetHiddenInGame(true, true);
-		Mesh1P->SetHiddenInGame(false, true);
-	}
+// 	if (bUsingMotionControllers)
+// 	{
+// 		VR_Gun->SetHiddenInGame(false, true);
+// 		Mesh1P->SetHiddenInGame(true, true);
+// 	}
+// 	else
+// 	{
+// 		VR_Gun->SetHiddenInGame(true, true);
+// 		Mesh1P->SetHiddenInGame(false, true);
+// 	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -324,44 +324,44 @@ void APortalCharacter::Fire()
 
 void APortalCharacter::OnBlueFire()
 {
-// 	APortalPlayerController* PlayerController =
-// 		Cast<APortalPlayerController>(GetWorld()->GetFirstPlayerController());
-// 	if (PlayerController != nullptr)
-// 	{
-// 		//APortalManager* PortalManager = PlayerController->GetPortalManager();
-// 		if (PortalManager != nullptr)
-// 		{
-// 			Fire();
-// 
-// 			const FVector Start = ((FP_MuzzleLocation != nullptr) ?
-// 				FP_MuzzleLocation->GetComponentLocation() : GetActorLocation() +
-// 				GetControlRotation().RotateVector(GunOffset));
-// 
-// 			const FVector End = Start + FirstPersonCameraComponent->GetForwardVector() * 5000.0f;
-// 
-// 			PortalManager->SpawnBluePortal(Start, End);
-// 		}
-// 	}
+	APortalPlayerController* PlayerController =
+		Cast<APortalPlayerController>(GetWorld()->GetFirstPlayerController());
+	if (PlayerController != nullptr)
+	{
+		APortalManager* PortalManager = PlayerController->GetPortalManager();
+		if (PortalManager != nullptr)
+		{
+			Fire();
+
+			const FVector Start = ((FP_MuzzleLocation != nullptr) ?
+				FP_MuzzleLocation->GetComponentLocation() : GetActorLocation() +
+				GetControlRotation().RotateVector(GunOffset));
+
+			const FVector End = Start + FirstPersonCameraComponent->GetForwardVector() * 5000.0f;
+
+			PortalManager->SpawnBluePortal(Start, End);
+		}
+	}
 }
 
 void APortalCharacter::OnRedFire()
 {
-// 	APortalPlayerController* PlayerController =
-// 		Cast<APortalPlayerController>(GetWorld()->GetFirstPlayerController());
-// 	if (PlayerController != nullptr)
-// 	{
-// 		APortalManager* PortalManager = PlayerController->GetPortalManager();
-// 		if (PortalManager != nullptr)
-// 		{
-// 			Fire();
-// 
-// 			const FVector Start = ((FP_MuzzleLocation != nullptr) ?
-// 				FP_MuzzleLocation->GetComponentLocation() : GetActorLocation() +
-// 				GetControlRotation().RotateVector(GunOffset));
-// 
-// 			const FVector End = Start + FirstPersonCameraComponent->GetForwardVector() * 5000.0f;
-// 
-// 			PortalManager->SpawnRedPortal(Start, End);
-// 		}
-// 	}
+	APortalPlayerController* PlayerController =
+		Cast<APortalPlayerController>(GetWorld()->GetFirstPlayerController());
+	if (PlayerController != nullptr)
+	{
+		APortalManager* PortalManager = PlayerController->GetPortalManager();
+		if (PortalManager != nullptr)
+		{
+			Fire();
+
+			const FVector Start = ((FP_MuzzleLocation != nullptr) ?
+				FP_MuzzleLocation->GetComponentLocation() : GetActorLocation() +
+				GetControlRotation().RotateVector(GunOffset));
+
+			const FVector End = Start + FirstPersonCameraComponent->GetForwardVector() * 5000.0f;
+
+			PortalManager->SpawnRedPortal(Start, End);
+		}
+	}
 }

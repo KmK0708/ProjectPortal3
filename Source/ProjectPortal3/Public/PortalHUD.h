@@ -14,4 +14,12 @@ class PROJECTPORTAL3_API APortalHUD : public AHUD
 {
 	GENERATED_BODY()
 	
+public:
+	APortalHUD();
+
+	virtual void DrawHUD() override;
+
+private:
+	class UTexture2D* CrosshairTex;
+
 };

@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "PortalPass.generated.h"
 
+class UBoxComponent;
+class USceneComponent;
+class UStaticMeshComponent;
+
 UCLASS()
 class PROJECTPORTAL3_API APortalPass : public AActor
 {
@@ -22,5 +26,46 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+		void OnPortalOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+			UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+			const FHitResult& SweepResult);
+
+	UFUNCTION()
+		void OnPortalOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+			UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	void TeleportActors();
+
+	void SetTarget(APortalPass* NewTarget);
+
+	void SetPortalSurface(AActor* Surface);
+
+	AActor* GetPortalSurface() const;
+
+	APortalPass* GetTarget() const;
+
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Portal)
+		UStaticMeshComponent* PortalMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Portal)
+		UBoxComponent* PortalCollision;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Capture)
+		APortalPass* Target;
+
+private:
+
+	FVector LastPosition;
+
+	bool bLastInFront;
+	bool Overlapping;
+
+	AActor* PortalSurface;
+
+	TArray<AActor*> OverlappingActors;
 
 };
